@@ -1,0 +1,9 @@
+✔ mascara CPF, telefone, e-mail e cartão, preservando o resto
+✔ palavras ignora acentos, maiúsculas e palavras comuns
+✔ fusão por posição recíproca favorece quem aparece bem nas duas listas
+✔ BM25 encontra o trecho do boleto
+✔ um cliente não vê o pedido de outro
+✔ frete grátis a partir de R$ 150 e CEP validado
+ℹ tests 6
+ℹ pass 6
+ℹ fail 0

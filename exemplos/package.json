@@ -1,0 +1,10 @@
+{
+  "name": "exemplos-engenharia-com-ia",
+  "version": "1.0.0",
+  "description": "Módulos de apoio dos exemplos do livro Engenharia com IA: do zero ao domínio",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0"
+  }
+}

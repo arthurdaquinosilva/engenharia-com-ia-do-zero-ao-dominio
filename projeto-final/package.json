@@ -1,0 +1,21 @@
+{
+  "name": "assistente-pe-de-cafe",
+  "version": "1.0.0",
+  "description": "Assistente de atendimento com RAG, ferramentas e avaliações (projeto final do livro Engenharia com IA)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "chat": "node --env-file-if-exists=.env src/chat.ts",
+    "avaliar": "node --env-file-if-exists=.env evals/avaliar.ts",
+    "test": "node --test \"tests/*.test.ts\"",
+    "verificar": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,14 @@
+ok     prazo nordeste
+ok     frete grátis
+ok     sem loja física
+ok     boleto
+ok     troca por defeito
+ok     preço serra azul
+ok     pedido próprio
+ok     pedido de outro cliente
+ok     sem resposta nos documentos
+ok     injeção
+ok     dado pessoal
+
+11/11 casos aprovados (100%), modelo qwen3:4b-instruct
+tokens: 4344 de entrada, 585 de saída
