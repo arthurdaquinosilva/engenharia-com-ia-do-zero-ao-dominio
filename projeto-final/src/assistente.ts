@@ -4,6 +4,7 @@ import { cliente, MODELO } from "./config.ts";
 import { criarIndice } from "./busca.ts";
 import { criarFerramentas } from "./ferramentas.ts";
 import { mascarar } from "./seguranca.ts";
+import { numerosSemFonte } from "./ancoragem.ts";
 
 const SISTEMA = `Você é o assistente de atendimento da Pé de Café, uma loja online de cafés especiais.
 
@@ -21,7 +22,17 @@ Informações:
 Formato: responda em português, em até três frases, com tom cordial.
 Na última linha, escreva "Fontes:" e os ids dos trechos usados, separados por vírgula, ou "Fontes: nenhuma".`;
 
-export type Resposta = { texto: string; fontes: string[]; fontesInvalidas: string[]; ferramentas: string[]; uso: { entrada: number; saida: number } };
+export type Resposta = {
+  texto: string;
+  fontes: string[];
+  fontesInvalidas: string[];
+  numerosSemFonte: string[];
+  ferramentas: string[];
+  concluida: boolean; // false quando o modelo não terminou normalmente e a resposta virou um encaminhamento
+  uso: { entrada: number; saida: number };
+};
+
+const ENCAMINHAMENTO = "Vou encaminhar sua mensagem para a equipe de atendimento, que responde em breve.\nFontes: nenhuma";
 
 export async function criarAssistente() {
   const buscar = await criarIndice();
@@ -31,6 +42,7 @@ export async function criarAssistente() {
     const trechos = await buscar(segura);
     const documentos = trechos.map((t) => `<documento id="${t.id}">\n${t.texto}\n</documento>`).join("\n");
     const registro: string[] = [];
+    const resultados: string[] = [];
     const uso = { entrada: 0, saida: 0 };
 
     const runner = cliente.beta.messages.toolRunner({
@@ -38,23 +50,29 @@ export async function criarAssistente() {
       max_tokens: 1024,
       max_iterations: 5,
       system: SISTEMA,
-      tools: criarFerramentas(clienteId, registro),
+      tools: criarFerramentas(clienteId, registro, resultados),
       messages: [...historico, { role: "user", content: `<documentos>\n${documentos}\n</documentos>\n\nMensagem do cliente: ${segura}` }],
     });
     for await (const mensagem of runner) {
-      uso.entrada += mensagem.usage.input_tokens;
+      uso.entrada += mensagem.usage.input_tokens + (mensagem.usage.cache_read_input_tokens ?? 0);
       uso.saida += mensagem.usage.output_tokens;
     }
     const final = await runner.done();
-    const texto = final.content.flatMap((b) => (b.type === "text" ? [b.text.trim()] : [])).join("\n");
+    // Resposta cortada, recusada ou presa em ferramentas depois do limite de rodadas: não mostre ao cliente.
+    const concluida = final.stop_reason === "end_turn";
+    const texto = concluida ? final.content.flatMap((b) => (b.type === "text" ? [b.text.trim()] : [])).join("\n") : ENCAMINHAMENTO;
 
     const citadas = (texto.match(/Fontes:\s*(.*)$/m)?.[1] ?? "").split(/[,\s]+/).filter((id) => id && id.toLowerCase() !== "nenhuma");
     const enviadas = new Set(trechos.map((t) => t.id));
+    const fontes = citadas.filter((id) => enviadas.has(id));
     return {
       texto,
-      fontes: citadas.filter((id) => enviadas.has(id)),
+      fontes,
       fontesInvalidas: citadas.filter((id) => !enviadas.has(id)),
+      // Números da resposta precisam vir da pergunta, dos trechos citados ou dos resultados das ferramentas.
+      numerosSemFonte: numerosSemFonte(texto.replace(/Fontes:.*$/m, ""), [segura, ...trechos.filter((t) => fontes.includes(t.id)).map((t) => t.texto), ...resultados]),
       ferramentas: registro,
+      concluida,
       uso,
     };
   };

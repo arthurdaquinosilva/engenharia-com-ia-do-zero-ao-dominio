@@ -1,4 +1,4 @@
-// Casos de avaliação do assistente (Capítulo 16). Cada critério é conferido por código.
+// Casos de avaliação do assistente (Capítulo 20). Cada critério é conferido por código.
 export type Caso = {
   nome: string;
   clienteId: string;

@@ -24,7 +24,8 @@ export function calcularFrete(cep: string, valorCompra: number): string {
   return JSON.stringify({ cep, valor: regiao <= 3 ? "R$ 18,00" : "R$ 26,00" });
 }
 
-export function criarFerramentas(clienteId: string, registro: string[]) {
+// `registro` guarda as chamadas; `resultados`, o que cada ferramenta devolveu (fonte válida para os números da resposta).
+export function criarFerramentas(clienteId: string, registro: string[], resultados: string[] = []) {
   return [
     betaZodTool({
       name: "consultar_pedido",
@@ -32,7 +33,9 @@ export function criarFerramentas(clienteId: string, registro: string[]) {
       inputSchema: z.object({ numero: z.string().regex(/^\d+$/).describe("Número do pedido, só dígitos") }),
       run: async ({ numero }) => {
         registro.push(`consultar_pedido(${numero})`);
-        return consultarPedido(clienteId, numero);
+        const r = consultarPedido(clienteId, numero);
+        resultados.push(r);
+        return r;
       },
     }),
     betaZodTool({
@@ -41,7 +44,9 @@ export function criarFerramentas(clienteId: string, registro: string[]) {
       inputSchema: z.object({ cep: z.string(), valorCompra: z.number().nonnegative() }),
       run: async ({ cep, valorCompra }) => {
         registro.push(`calcular_frete(${cep}, ${valorCompra})`);
-        return calcularFrete(cep, valorCompra);
+        const r = calcularFrete(cep, valorCompra);
+        resultados.push(r);
+        return r;
       },
     }),
   ];

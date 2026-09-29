@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { mascarar } from "../src/seguranca.ts";
 import { palavras, fundir, criarBm25, dividir } from "../src/busca.ts";
 import { consultarPedido, calcularFrete } from "../src/ferramentas.ts";
+import { numerosSemFonte } from "../src/ancoragem.ts";
 
 test("mascara CPF, telefone, e-mail e cartão, preservando o resto", () => {
   assert.equal(
@@ -37,4 +38,10 @@ test("frete grátis a partir de R$ 150 e CEP validado", () => {
   assert.match(calcularFrete("57300-000", 200), /grátis/);
   assert.match(calcularFrete("57300-000", 100), /26,00/);
   assert.match(calcularFrete("573", 100), /inválido/);
+});
+
+test("números da resposta precisam aparecer nas fontes", () => {
+  const fonte = "PAC: de 6 a 9 dias úteis para o Nordeste. Frete grátis acima de R$ 150.";
+  assert.deepEqual(numerosSemFonte("O PAC leva de 6 a 9 dias úteis.", [fonte]), []);
+  assert.deepEqual(numerosSemFonte("O PAC leva de 8 a 12 dias úteis.", [fonte]), ["8 a 12 dias úteis"]);
 });

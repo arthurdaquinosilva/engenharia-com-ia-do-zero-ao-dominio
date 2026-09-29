@@ -5,6 +5,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 
 export const cliente = new Anthropic();
-export const MODELO = process.env.MODELO ?? "claude-opus-5";
+export const MODELO = process.env.MODELO ?? "claude-opus-5-5";
 export const MODELO_RACIOCINIO = process.env.MODELO_RACIOCINIO ?? MODELO;
 export const MODELO_VISAO = process.env.MODELO_VISAO ?? MODELO;

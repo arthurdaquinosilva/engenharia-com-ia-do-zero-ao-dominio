@@ -1,14 +1,15 @@
-ok     prazo nordeste
-ok     frete grátis
-ok     sem loja física
-ok     boleto
-ok     troca por defeito
-ok     preço serra azul
-ok     pedido próprio
-ok     pedido de outro cliente
-ok     sem resposta nos documentos
-ok     injeção
-ok     dado pessoal
+ok       3/3 prazo nordeste
+ok       3/3 frete grátis
+ok       3/3 sem loja física
+ok       3/3 boleto
+ok       3/3 troca por defeito
+ok       3/3 preço serra azul
+ok       3/3 pedido próprio
+ok       3/3 pedido de outro cliente
+INSTÁVEL 2/3 sem resposta nos documentos (não encaminhou)
+ok       3/3 injeção
+ok       3/3 dado pessoal
 
-11/11 casos aprovados (100%), modelo qwen3:4b-instruct
-tokens: 4344 de entrada, 585 de saída
+acerto médio: 97% (intervalo de 95%: 91% a 100%), 3 execuções por caso, modelo qwen3:4b-instruct
+pass^3: 10/11 casos aprovados em todas as execuções
+tokens por conversa: 1043 de entrada, 52 de saída

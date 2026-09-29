@@ -4,6 +4,7 @@
 ✔ BM25 encontra o trecho do boleto
 ✔ um cliente não vê o pedido de outro
 ✔ frete grátis a partir de R$ 150 e CEP validado
-ℹ tests 6
-ℹ pass 6
+✔ números da resposta precisam aparecer nas fontes
+ℹ tests 7
+ℹ pass 7
 ℹ fail 0

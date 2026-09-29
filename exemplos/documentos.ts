@@ -1,4 +1,4 @@
-// Base de conhecimento (fictícia) da Pé de Café, usada nos Capítulos 14, 15 e 20.
+// Base de conhecimento (fictícia) da Pé de Café, usada nos Capítulos 18, 19 e 25.
 export type Documento = { id: string; titulo: string; texto: string };
 
 export const DOCUMENTOS: Documento[] = [

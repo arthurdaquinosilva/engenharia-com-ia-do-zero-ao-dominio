@@ -1,4 +1,4 @@
-// Peças comuns do RAG (Capítulos 14 e 15): trechos, palavras, conjunto de avaliação e revocação@k.
+// Peças comuns do RAG (Capítulos 18 e 19): trechos, palavras, conjunto de avaliação e revocação@k.
 import { DOCUMENTOS } from "./documentos.ts";
 
 export type Trecho = { id: string; documento: string; texto: string };

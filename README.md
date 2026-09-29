@@ -2,7 +2,8 @@
 
 Código que acompanha o livro **Engenharia com IA: do zero ao domínio**, de Arthur Antunes de Aquino Silva:
 um livro-curso para construir produtos com modelos de linguagem em TypeScript, com prompts, ferramentas,
-agentes, RAG, avaliações automáticas e produção.
+agentes, engenharia de contexto, RAG, avaliações automáticas e produção. Este código acompanha a 2.ª versão do
+livro (25 capítulos, setembro de 2026).
 
 O livro está à venda na Amazon (Kindle e impresso). Este repositório traz só o código; as explicações,
 os exercícios e as respostas estão no livro.
@@ -10,10 +11,12 @@ os exercícios e as respostas estão no livro.
 ## O que tem aqui
 
 ```
-projeto-final/   Assistente de atendimento da Pé de Café (Capítulo 20): RAG com busca híbrida,
-                 ferramentas, citações, proteção de dados pessoais, testes e avaliações automáticas
-exemplos/        Módulos de apoio usados nos exemplos dos capítulos (cliente da API, documentos,
-                 embeddings e RAG)
+projeto-final/   Assistente de atendimento da Pé de Café (Capítulo 25): RAG com busca híbrida,
+                 ferramentas, citações e números conferidos contra as fontes, proteção de dados
+                 pessoais, testes e avaliações automáticas com repetições e intervalo de confiança
+exemplos/        Módulos de apoio usados nos exemplos dos capítulos: cliente da API, documentos,
+                 embeddings e RAG, catálogo de ferramentas (Capítulo 11), harness de agente
+                 (Capítulos 14 e 15) e estatística para avaliações (Capítulo 21)
 ```
 
 ## Como rodar o projeto final
@@ -28,7 +31,7 @@ ollama pull embeddinggemma          # embeddings (usados nas duas opções)
 ollama pull qwen3:4b-instruct       # só na opção gratuita
 cp .env.exemplo .env                # escolha a API da Claude ou o Ollama
 npm test                            # testes unitários (não chamam o modelo)
-npm run avaliar                     # avaliações automáticas (chamam o modelo)
+npm run avaliar                     # avaliações automáticas, 3 execuções por caso (chamam o modelo)
 npm run chat                        # conversa no terminal
 ```
 

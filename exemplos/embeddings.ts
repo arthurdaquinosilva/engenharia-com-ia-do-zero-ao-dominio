@@ -1,4 +1,4 @@
-// Embeddings com o Ollama (Capítulo 13): grátis e local, para quem usa a API da Claude ou o Ollama.
+// Embeddings com o Ollama (Capítulo 17): grátis e local, para quem usa a API da Claude ou o Ollama.
 const URL_OLLAMA = process.env.OLLAMA_URL ?? "http://localhost:11434";
 export const MODELO_EMBEDDING = process.env.MODELO_EMBEDDING ?? "embeddinggemma";
 

@@ -1,4 +1,4 @@
-// Mascaramento de dados pessoais antes de enviar textos ao modelo ou aos logs (Capítulo 17).
+// Mascaramento de dados pessoais antes de enviar textos ao modelo ou aos logs (Capítulo 22).
 const PADROES: [RegExp, string][] = [
   [/\b\d{3}\.?\d{3}\.?\d{3}-?\d{2}\b/g, "[CPF]"],
   [/\b(?:\d[ -]?){13,16}\b/g, "[CARTAO]"],

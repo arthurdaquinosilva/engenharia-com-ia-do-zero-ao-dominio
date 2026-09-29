@@ -1,4 +1,4 @@
-// Busca híbrida nos documentos da loja (Capítulos 13 a 15): BM25 + embeddings, com fusão por posição recíproca.
+// Busca híbrida nos documentos da loja (Capítulos 17 a 19): BM25 + embeddings, com fusão por posição recíproca.
 import { DOCUMENTOS } from "./documentos.ts";
 import { URL_OLLAMA, MODELO_EMBEDDING } from "./config.ts";
 
